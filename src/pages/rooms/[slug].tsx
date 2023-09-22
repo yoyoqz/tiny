@@ -161,7 +161,7 @@ export default function RoomPage({
     //if (region) {
     //  params.region = region;
     //}
-    fetch("/live/api/token?" + new URLSearchParams(params).toString())
+    fetch("/film/api/token?" + new URLSearchParams(params).toString())
       .then((res) => res.json())
       .then((data: TokenResult) => {
         setTokenResult(data);
