@@ -13,7 +13,6 @@ import {
   TooltipTrigger,
 } from "../ui/Tooltip";
 
-import Link from "next/link";
 import { Icons } from "../ui/Icons";
 
 function toString(connectionState: string) {
@@ -110,7 +109,7 @@ export const StreamPlayer = ({ participant }: { participant: Participant }) => {
         <video ref={videoEl} width="100%" />
         <div className="absolute top-0 h-full w-full opacity-0 hover:opacity-100 hover:transition-all">
           <div className="absolute bottom-0 flex h-14 w-full items-center justify-between bg-gradient-to-t from-black px-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <Tooltip>
                 <TooltipTrigger>
                   <div className="text-white" onClick={onToggleMute}>
@@ -129,8 +128,6 @@ export const StreamPlayer = ({ participant }: { participant: Participant }) => {
                 className="ml-1 h-0.5 w-24 cursor-pointer appearance-none rounded-full bg-white accent-white"
                 value={volume}
               />
-            </div>
-            <div className="flex items-center justify-center gap-4">
               <Tooltip>
                 <TooltipTrigger>
                   <div className="text-white" onClick={onFullScreen}>
@@ -144,10 +141,7 @@ export const StreamPlayer = ({ participant }: { participant: Participant }) => {
                 <TooltipContent>
                   {isFullScreen ? "Exit fullscreen" : "Enter fullscreen"}
                 </TooltipContent>
-              </Tooltip>
-              <Link href="https://livekit.io/" target="_blank" rel="noreferrer">
-                <Icons.livekit className="w-16 text-white hover:text-rose-400 hover:transition-all" />
-              </Link>
+              </Tooltip>              
             </div>
           </div>
         </div>

@@ -1,1 +1,1 @@
-export const APP_TITLE = 'TMDb Explorer';
+export const APP_TITLE = '黑马教育';
