@@ -43,18 +43,6 @@ export default function ChannelInfo({ username }: Props) {
                 <Icons.check className="h-3 w-3 text-white dark:text-zinc-900" />
               </div>
             </div>
-            <h2 className="text-sm font-medium">Testing out LiveKit Ingress</h2>
-            <div className="-ml-0.5 flex gap-1 pt-1.5 text-xs font-medium">
-              <div className="rounded-lg bg-zinc-200 px-2 py-0.5 dark:bg-zinc-800">
-                #livekit
-              </div>
-              <div className="rounded-lg bg-zinc-200 px-2 py-0.5 dark:bg-zinc-800">
-                #ingress
-              </div>
-              <div className="rounded-lg bg-zinc-200 px-2 py-0.5 dark:bg-zinc-800">
-                #livestream
-              </div>
-            </div>
           </div>
         </div>
         <Presence />

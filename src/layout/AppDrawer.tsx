@@ -48,6 +48,12 @@ function AppDrawer() {
       >
         <List subheader={<ListSubheader>Discover</ListSubheader>}>
           <AppDrawerItem
+            href="/rooms/popular"
+            selected={router.pathname === '/rooms/popular'}
+            icon={<TrendingUpIcon />}
+            title="直播"
+          />
+          <AppDrawerItem
             href="/movie/popular"
             selected={router.pathname === '/movie/popular'}
             icon={<TrendingUpIcon />}

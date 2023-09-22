@@ -4,13 +4,15 @@ import { FIRST_PAGE, getNextPageParam, IS_SERVER } from '@/common/CommonUtils';
 import { moviesService } from '@/movies/MoviesService';
 import { httpClient } from '@/http-client/httpClient';
 
+const prefix = "/film"
+
 export const moviesAPI = {
   movieDetails: (movieId: ID) => ({
     queryKey: ['movieDetails', movieId],
     queryFn: () =>
       IS_SERVER
         ? moviesService.getMovieDetails(movieId)
-        : httpClient.get<MovieDetails>(`/api/movies/${movieId}`),
+        : httpClient.get<MovieDetails>(`${prefix}/api/movies/${movieId}`),
   }),
   movieRecommendations: (movieId: ID) => ({
     queryKey: ['movieRecommendations', movieId],
@@ -18,7 +20,7 @@ export const moviesAPI = {
       IS_SERVER
         ? moviesService.getMovieRecommendations(movieId, { page: pageParam })
         : httpClient.get<PaginationResponse<Movie>>(
-            `/api/movies/${movieId}/recommendations`,
+            `${prefix}/api/movies/${movieId}/recommendations`,
             {
               page: pageParam,
             },
@@ -30,7 +32,7 @@ export const moviesAPI = {
     queryFn: ({ pageParam = FIRST_PAGE }) =>
       IS_SERVER
         ? moviesService.getDiscoverMovies(pageParam, args)
-        : httpClient.get<PaginationResponse<Movie>>(`/api/movies/discover`, {
+        : httpClient.get<PaginationResponse<Movie>>(`${prefix}/api/movies/discover`, {
             ...args,
             page: pageParam,
           }),
@@ -41,7 +43,7 @@ export const moviesAPI = {
     queryFn: ({ pageParam = FIRST_PAGE }) =>
       IS_SERVER
         ? moviesService.getPopularMovies(pageParam)
-        : httpClient.get<PaginationResponse<Movie>>('/api/movies/popular', {
+        : httpClient.get<PaginationResponse<Movie>>(`${prefix}/api/movies/popular`, {
             page: pageParam,
           }),
     getNextPageParam,
@@ -51,7 +53,7 @@ export const moviesAPI = {
     queryFn: ({ pageParam = FIRST_PAGE }) =>
       IS_SERVER
         ? moviesService.getTopRatedMovies(pageParam)
-        : httpClient.get<PaginationResponse<Movie>>('/api/movies/top-rated', {
+        : httpClient.get<PaginationResponse<Movie>>(`${prefix}/api/movies/top-rated`, {
             page: pageParam,
           }),
     getNextPageParam,
@@ -61,6 +63,6 @@ export const moviesAPI = {
     queryFn: () =>
       IS_SERVER
         ? moviesService.getMovieGenres()
-        : httpClient.get<Genre[]>('/api/movies/genres'),
+        : httpClient.get<Genre[]>(`${prefix}/api/movies/genres`),
   }),
 };

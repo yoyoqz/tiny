@@ -5,39 +5,52 @@ import { dehydrate, useInfiniteQuery } from '@tanstack/react-query';
 import { getAllPageResults } from '@/common/CommonUtils';
 import { createQueryClient } from '@/http-client/queryClient';
 import PageTitle from '@/common/PageTitle';
-import { Person } from '@/people/PeopleTypes';
-import { apiConfigurationAPI } from '@/api-configuration/apiConfigurationAPI';
-import { peopleAPI } from '@/people/peopleAPI';
+import LiveCard from '@/live/LiveCard';
 import InfiniteGridList from '@/common/InfiniteGridList';
 import { GetServerSideProps } from 'next';
+import BaseGridList from '@/common/BaseGridList';
 
-function PopularPeoplePage() {
-  const { data, hasNextPage, isFetching, fetchNextPage } = useInfiniteQuery<
-    PaginationResponse<Person>
-  >(peopleAPI.popularPeople());
+
+import { getRoomClient } from '../../lib/clients';
+import { Room } from 'livekit-client';
+
+function functest() {
+  console.log('abc ddd')
+}
+
+function PopularPeoplePage({ data }:any) {
+  
+  console.log({data})
 
   return (
     <>
-      <BaseSeo title="Popular People" description="Popular people list" />
-      <PageTitle title="Popular People" />
-      <InfiniteGridList
-        loading={isFetching}
-        hasNextPage={!!hasNextPage}
-        onLoadMore={fetchNextPage}
+      <BaseSeo title="直播专区" description="Popular people list" />
+      <PageTitle title="直播专区2" />
+      <BaseGridList
+      listEmptyMessage="No crew info has been found."
       >
-        {getAllPageResults(data).map((person) => {
-          return (
-            <li key={person.id}>
-              <PersonCard person={person} />
+      {
+        data.map((room: any) => (
+            <li key={room.sid}>
+            <LiveCard name ={room.name} url="https://t1.szrtcpa.com/2023/09/21/5ec898fba0d22.jpg"/>
             </li>
-          );
-        })}
-      </InfiniteGridList>
+        ))
+      }
+      </BaseGridList>
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export async function getServerSideProps() {
+  const client = getRoomClient();
+  const data = await client.listRooms();
+  //console.log({rooms})
+
+  return { props: { data } }
+}
+
+
+/*
   const queryClient = createQueryClient();
 
   await Promise.all([
@@ -54,5 +67,5 @@ export const getServerSideProps: GetServerSideProps = async () => {
     },
   };
 };
-
-export default PopularPeoplePage;
+*/
+export default PopularPeoplePage
